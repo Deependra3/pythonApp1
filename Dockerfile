@@ -1,20 +1,42 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+# # Use an official Python runtime as a parent image
+# FROM python:3.9-slim
 
-# Set the working directory in the container
+# # Set the working directory in the container
+# WORKDIR /app
+
+# # Copy everything from the New folder directory into the container at /app
+# COPY . /app
+
+# # Install any needed packages specified in requirements.txt
+# RUN pip install -r requirements.txt
+
+# # Make port 8050 available to the world outside this container
+# EXPOSE 8050
+
+# # Verify if the file is copied into the Docker image
+# RUN ls -l /app
+
+# # CMD to run app.py when the container launches
+# CMD ["python", "app.py"]
+
+
+# Base image
+FROM python:3.9-slim 
+
+# Set working directory
 WORKDIR /app
 
-# Copy everything from the New folder directory into the container at /app
-COPY ./New\ folder /app
+# Copy requirements.txt
+COPY requirements.txt ./
 
-# Install any needed packages specified in requirements.txt
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 8050 available to the world outside this container
-EXPOSE 8050
+# Copy your application code
+COPY . .
 
-# Verify if the file is copied into the Docker image
-RUN ls -l /app
+# Set the command to run your application
+CMD [ "python", "app.py" ]  # Replace with your main script name
 
-# CMD to run app.py when the container launches
-CMD ["python", "app.py"]
+# (Optional) Expose port (if your application listens on a specific port)
+ EXPOSE 8051
