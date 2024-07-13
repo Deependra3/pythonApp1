@@ -1,0 +1,32 @@
+{
+  "family": "my-plotly-dash-app",
+  "containerDefinitions": [
+    {
+      "name": "my-plotly-dash-container",
+      "image": "rajauriyad/my-plotly-dash-app:latest",
+      "portMappings": [
+        {
+          "containerPort": 8050,
+          "protocol": "tcp"
+        }
+      ],
+      "cpu": 256,
+      "memory": 512,  // Corrected: memory should be an integer (MiB)
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/my-plotly-dash-app",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "my-plotly-dash-container"
+        }
+      }
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",  // Optional: You can remove this line if it's not necessary
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole"
+}
